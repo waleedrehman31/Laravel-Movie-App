@@ -31,6 +31,16 @@
           if: steps.check_files.outputs.files_exists == 'true'
           run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
         
+        - name: Check if package.json exists
+          id: check_files_npm
+          uses: andstor/file-existence-action@v1
+          with:
+            files: "package.json"
+  
+        - name: Run npm install install if package.json exists
+          if: steps.check_files_npm.outputs.files_exists == 'true'
+          run: npm install
+        
         - name: Upload artifact for deployment job
           uses: actions/upload-artifact@v2
           with:
