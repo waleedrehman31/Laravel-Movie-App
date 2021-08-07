@@ -4,6 +4,7 @@
     </IfModule>
     
     RewriteEngine on
+    Options +FollowSymLinks
     RewriteCond %{REQUEST_URI} !^public
     RewriteRule ^(.*)$ public/$1 [L]
 
